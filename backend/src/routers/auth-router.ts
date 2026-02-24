@@ -1,7 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express';
 import { User } from '../models/user';
 import argon2 from 'argon2';
-import jwt, { JwtPayload } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 import { AuthRequest } from '../models/auth/authrequest';
 import { authMiddleware } from '../middlewares/authmiddleware';
 import { DbService } from '../services/db-service';
