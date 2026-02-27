@@ -19,7 +19,7 @@ router.post('/register', async (req: Request, res: Response): Promise<void> => {
   };
 
   if (!username?.trim() || !email?.trim() || !password?.trim()) {
-    res.status(400).json({ error: 'Username, Email und Passwort erforderlich' });
+    res.status(400).json({ error: 'Username, Email and Password needed' });
     return;
   }
 
@@ -30,7 +30,7 @@ router.post('/register', async (req: Request, res: Response): Promise<void> => {
     [username, email],
     async (err, row) => {
       if (err) { res.status(500).json({ error: err.message }); return; }
-      if (row) { res.status(409).json({ error: 'Username oder Email bereits vergeben' }); return; }
+      if (row) { res.status(409).json({ error: 'Username or Email already used' }); return; }
 
       try {
         const passhash = await argon2.hash(password);
@@ -63,17 +63,17 @@ router.post('/login', async (req: Request, res: Response): Promise<void> => {
   const { email, password } = req.body as { email?: string; password?: string };
 
   if (!email?.trim() || !password?.trim()) {
-    res.status(400).json({ error: 'Email und Passwort erforderlich' });
+    res.status(400).json({ error: 'Email and Passwort needed' });
     return;
   }
 
   db.get<User>('SELECT * FROM users WHERE email = ?', [email.trim()], async (err, user) => {
     if (err) { res.status(500).json({ error: err.message }); return; }
-    if (!user) { res.status(401).json({ error: 'Email oder Passwort falsch' }); return; }
+    if (!user) { res.status(401).json({ error: 'Email or Passwort wrong' }); return; }
 
     try {
       const valid = await argon2.verify(user.passhash!, password);
-      if (!valid) { res.status(401).json({ error: 'Email oder Passwort falsch' }); return; }
+      if (!valid) { res.status(401).json({ error: 'Email or Passwort wrong' }); return; }
 
       const token = jwt.sign({ id: user.id, username: user.username }, process.env.JWT_SECRETE!, { expiresIn: '7d' });
       const { passhash, ...safeUser } = user;

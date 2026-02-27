@@ -20,9 +20,11 @@ const db = DbService.getDb();
 
 const authRouter = require('./routers/auth-router');
 const chatRouter = require('./routers/chat-router');
+const skillRouter = require('./routers/skill-router');
 
 app.use('/auth', authRouter);
 app.use('/chat', chatRouter);
+app.use('/skill', skillRouter);
 
 const onlineUsers = new Map<number, string>();
 
