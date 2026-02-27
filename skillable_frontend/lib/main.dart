@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:skillable_frontend/main_screen.dart';
+import 'package:skillable_frontend/pages/login.dart';
 
 void main() {
   runApp(const MainApp());
@@ -9,12 +11,12 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
-      ),
+    return MaterialApp(
+      initialRoute: '/login',
+      routes: {
+        '/login': (context) => const LoginScreen(),
+        '/main': (context) => const MainScreen(),
+      },
     );
   }
 }
