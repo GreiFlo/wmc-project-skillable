@@ -14,73 +14,74 @@ const router = express.Router();
 const db = DbService.getDb();
 
 router.get('/nearby', authMiddleware, (req: Request, res: Response) => {
-    if(req.query.long === undefined || req.query.lat === undefined) {
-        res.status(400).json({error: "Keine Parameter (long, lat) gefunden!"})
-        return;
-    }
+  if (req.query.long === undefined || req.query.lat === undefined) {
+    res.status(400).json({ error: "Keine Parameter (long, lat) gefunden!" })
+    return;
+  }
 
-    let long = parseFloat(req.query.long as string);
-    let lat = parseFloat(req.query.lat as string);
+  let long = parseFloat(req.query.long as string);
+  let lat = parseFloat(req.query.lat as string);
 
-    db.all<Skill>(`
+  db.all<Skill>(`
         SELECT id, user_id, title, description, creationDate, longitude, latitude
         FROM skills
         ORDER BY creationDate ASC
         LIMIT 30
       `, (err, rows) => {
-        if (err) { res.status(500).json({ error: err.message }); return; }
-        res.json(rows.filter(x => getDistanceInKm(x.latitude, x.longitude, lat, long) <= 20));
-      });
+    if (err) { res.status(500).json({ error: err.message }); return; }
+    res.json(rows.filter(x => getDistanceInKm(x.latitude, x.longitude, lat, long) <= 20));
+  });
 });
 
 router.get('/all', authMiddleware, (req: Request, res: Response) => {
-    db.all<Skill>(`
+  console.log('aklsjdfölkasjdfö');
+  db.all<Skill>(`
         SELECT id, user_id, title, description, creationDate, longitude, latitude
         FROM skills
         ORDER BY creationDate ASC
         LIMIT 30
       `, (err, rows) => {
-        if (err) { res.status(500).json({ error: err.message }); return; }
-        res.json(rows);
-      });
+    if (err) { res.status(500).json({ error: err.message }); return; }
+    res.json(rows);
+  });
 });
 
 router.post('/', authMiddleware, (req: Request, res: Response) => {
 
-    if(req.body === undefined){
-        res.status(400).send(); 
-        return;
-    }
-    let skill = req.body as AddSkill;
+  if (req.body === undefined) {
+    res.status(400).send();
+    return;
+  }
+  let skill = req.body as AddSkill;
 
-    const token = req.headers['authorization']?.split(' ')[1];
+  const token = req.headers['authorization']?.split(' ')[1];
 
-    const user: JwtPayload = jwt.decode(token!) as JwtPayload;
+  const user: JwtPayload = jwt.decode(token!) as JwtPayload;
 
-    db.run(
-          'INSERT INTO skills (title, description, user_id, longitude, latitude) VALUES (?, ?, ?, ?, ?)',
-          [skill.title, skill.description, user.id, skill.long, skill.lat],
-          function (err) {
-            if (err) { res.status(500).json({error: err.message}); return; }
-            else res.status(200).send();
-          },
-        );
+  db.run(
+    'INSERT INTO skills (title, description, user_id, longitude, latitude) VALUES (?, ?, ?, ?, ?)',
+    [skill.title, skill.description, user.id, skill.long, skill.lat],
+    function (err) {
+      if (err) { res.status(500).json({ error: err.message }); return; }
+      else res.status(200).send();
+    },
+  );
 });
 
 function getDistanceInKm(
-  lat1: number, 
-  lon1: number, 
-  lat2: number, 
+  lat1: number,
+  lon1: number,
+  lat2: number,
   lon2: number
 ): number {
-  const R = 6371; 
+  const R = 6371;
 
   const toRad = (value: number): number => (value * Math.PI) / 180;
 
   const dLat = toRad(lat2 - lat1);
   const dLon = toRad(lon2 - lon1);
 
-  const a = 
+  const a =
     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
     Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
 

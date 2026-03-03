@@ -36,7 +36,7 @@ class AuthService {
         'password': password,
       }),
     );
-
+    _client.close();
     return _handleResponse(response);
   }
 
@@ -54,7 +54,7 @@ class AuthService {
         'password': password,
       }),
     );
-
+    _client.close();
     return _handleResponse(response);
   }
 
@@ -71,6 +71,4 @@ class AuthService {
 
     throw AuthException(errorMessage, statusCode: response.statusCode);
   }
-
-  void dispose() => _client.close();
 }

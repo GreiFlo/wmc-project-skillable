@@ -27,6 +27,8 @@ class SkillsService {
         },
       );
 
+      _client.close();
+
       List<dynamic> body = jsonDecode(response.body);
 
       List<Skill> skills = body
@@ -41,26 +43,35 @@ class SkillsService {
 
   Future<List<Skill>> getAll() async {
     final uri = Uri.parse('$baseUrl/all');
-
     try {
       var sharedPreferences = await SharedPreferences.getInstance();
       var token = sharedPreferences.getString('token');
-      final response = await _client.get(
-        uri,
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer $token',
-        },
-      );
+
+      final response = await _client
+          .get(
+            // _client statt http.get
+            uri,
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer $token',
+              'Connection': 'close', // wichtig für lokale Server
+            },
+          )
+          .timeout(const Duration(seconds: 5));
+
+      _client.close();
+
+      if (response.statusCode != 200) {
+        print('Error: ${response.statusCode} - ${response.body}');
+        return List<Skill>.empty();
+      }
 
       List<dynamic> body = jsonDecode(response.body);
-
-      List<Skill> skills = body
+      return body
           .map((dynamic item) => Skill.fromJson(item as Map<String, dynamic>))
           .toList();
-
-      return skills;
     } catch (e) {
+      print('getAll error: $e'); // zeigt dir den echten Fehler
       return List<Skill>.empty();
     }
   }
@@ -83,5 +94,7 @@ class SkillsService {
         "lat": lat,
       }),
     );
+
+    _client.close();
   }
 }
