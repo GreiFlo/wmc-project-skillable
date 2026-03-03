@@ -24,7 +24,7 @@ const skillRouter = require('./routers/skill-router');
 
 app.use('/auth', authRouter);
 app.use('/chat', chatRouter);
-app.use('/skill', skillRouter);
+app.use('/skills', skillRouter);
 
 const onlineUsers = new Map<number, string>();
 

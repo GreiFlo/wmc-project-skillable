@@ -51,20 +51,31 @@ class _LoginScreen extends State {
             PasswordField(controller: passwordController),
             ElevatedButton(
               onPressed: () async {
-                var result = await AuthService().register(username: usernameController.text, email: emailController.text, password: passwordController.text);
-                if (result.token.isNotEmpty){
-                  var sharedPreferences = await SharedPreferences.getInstance();
-                  sharedPreferences.setString('token', result.token);
-                  print(sharedPreferences.getString('token'));
-                  Navigator.pushReplacementNamed(context, '/main');
+                try{
+                  var result = await AuthService().login(email: emailController.text, password: passwordController.text);
+                  if (result.token.isNotEmpty){
+                    var sharedPreferences = await SharedPreferences.getInstance();
+                    sharedPreferences.setString('token', result.token);
+                    Navigator.pushReplacementNamed(context, '/main');
+                  }
+                }catch(e){
+                  
                 }
               },
               child: const Text('Login'),
             ),
             ElevatedButton(
-              onPressed: () {
-                
-                Navigator.pushReplacementNamed(context, '/main');
+              onPressed: () async {
+                try{
+                  var result = await AuthService().register(username: usernameController.text, email: emailController.text, password: passwordController.text);
+                  if (result.token.isNotEmpty){
+                    var sharedPreferences = await SharedPreferences.getInstance();
+                    sharedPreferences.setString('token', result.token);
+                    Navigator.pushReplacementNamed(context, '/main');
+                  }
+                }catch(e){
+
+                }
               },
               child: const Text('Register'),
             ),

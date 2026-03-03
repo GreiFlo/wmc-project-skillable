@@ -21,7 +21,7 @@ export class DbService {
       );
 
       this.db!.run(
-        'CREATE TABLE IF NOT EXISTS skills (id INTEGER PRIMARY KEY, user_id INTEGER, title TEXT, description TEXT, creationDate DATE, FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE)'
+        'CREATE TABLE IF NOT EXISTS skills (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER, title TEXT, description TEXT, creationDate DATETIME DEFAULT CURRENT_TIMESTAMP, longitude REAL, latitude REAL, FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE)'
       );
 
       this.db!.run(
