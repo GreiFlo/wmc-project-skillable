@@ -4,11 +4,11 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skillable_frontend/models/skillmodels/skill.dart';
 
-class AuthService {
+class SkillsService {
   final String baseUrl = 'http://10.0.2.2:3000/skills';
   final http.Client _client;
 
-  AuthService({http.Client? client}) : _client = client ?? http.Client();
+  SkillsService({http.Client? client}) : _client = client ?? http.Client();
 
   Future<List<Skill>> getNearby({
     required double lat,
