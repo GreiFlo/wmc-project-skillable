@@ -84,9 +84,15 @@ class SkillsService {
   }) async {
     final uri = Uri.parse(baseUrl);
 
+    var sharedPreferences = await SharedPreferences.getInstance();
+    var token = sharedPreferences.getString('token');
+    
     await _client.post(
       uri,
-      headers: {'Content-Type': 'application/json'},
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
       body: jsonEncode({
         "title": title,
         "description": description,

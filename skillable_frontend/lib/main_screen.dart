@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:skillable_frontend/pages/add_skill.dart';
 import 'package:skillable_frontend/pages/home.dart';
 
 class MainScreen extends StatefulWidget {
@@ -16,8 +17,7 @@ class _MainScreenState extends State<MainScreen> {
     const HomePage(),
     const Placeholder(),
     const Placeholder(),
-    const Placeholder(),
-    const Placeholder(),
+    const AddSkillPage(),
   ];
 
   @override

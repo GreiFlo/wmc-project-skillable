@@ -2,13 +2,14 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-class _FilterChip extends StatelessWidget {
+class FilterChip extends StatelessWidget {
   final IconData? icon;
   final String? label;
   final bool isSelected;
   final VoidCallback onTap;
 
-  const _FilterChip({
+  const FilterChip({
+    super.key, 
     this.icon,
     this.label,
     required this.isSelected,
