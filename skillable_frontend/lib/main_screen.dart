@@ -30,10 +30,9 @@ class _MainScreenState extends State<MainScreen> {
         type: BottomNavigationBarType.fixed,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Startseite'),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Suche'),
-          BottomNavigationBarItem(icon: Icon(Icons.add_box), label: 'Erstellen'),
-          BottomNavigationBarItem(icon: Icon(Icons.notifications), label: 'Benachrichtigungen'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profil'),
+          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Chats'),
+          BottomNavigationBarItem(icon: Icon(Icons.add_box), label: 'Profil'),
+          BottomNavigationBarItem(icon: Icon(Icons.notifications), label: 'Hinzufügen'),
         ],
       ),
     );
