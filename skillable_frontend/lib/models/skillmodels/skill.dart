@@ -15,8 +15,9 @@ class Skill {
   final String creationDate;
   final double longitude;
   final double latitude;
+  final String username;
 
-  Skill({required this.id, required this.title, required this.description, required this.userid, required this.creationDate, required this.latitude, required this.longitude});
+  Skill({required this.id, required this.title, required this.description, required this.userid, required this.creationDate, required this.latitude, required this.longitude, required this.username});
 
   factory Skill.fromJson(Map<String, dynamic> json) {
     return Skill(
@@ -26,7 +27,8 @@ class Skill {
       userid: json['user_id'] as int,
       creationDate: json['creationDate'],
       longitude: json['longitude'],
-      latitude: json['latitude']
+      latitude: json['latitude'],
+      username: json['username']
     );
   }
 

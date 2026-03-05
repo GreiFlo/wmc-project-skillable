@@ -23,8 +23,9 @@ router.get('/nearby', authMiddleware, (req: Request, res: Response) => {
   let lat = parseFloat(req.query.lat as string);
 
   db.all<Skill>(`
-        SELECT id, user_id, title, description, creationDate, longitude, latitude
-        FROM skills
+        SELECT s.id, s.user_id, s.title, s.description, s.creationDate, s.longitude, s.latitude, u.username
+        FROM skills s
+        JOIN users u ON s.user_id = u.id
         ORDER BY creationDate ASC
         LIMIT 30
       `, (err, rows) => {
@@ -36,8 +37,9 @@ router.get('/nearby', authMiddleware, (req: Request, res: Response) => {
 router.get('/all', authMiddleware, (req: Request, res: Response) => {
   console.log('aklsjdfölkasjdfö');
   db.all<Skill>(`
-        SELECT id, user_id, title, description, creationDate, longitude, latitude
-        FROM skills
+        SELECT s.id, s.user_id, s.title, s.description, s.creationDate, s.longitude, s.latitude, u.username
+        FROM skills s
+        JOIN users u ON s.user_id = u.id
         ORDER BY creationDate ASC
         LIMIT 30
       `, (err, rows) => {

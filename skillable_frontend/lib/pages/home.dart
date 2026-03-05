@@ -33,11 +33,21 @@ class _HomePage extends State<HomePage>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Home', style: TextStyle(
+          fontWeight: FontWeight.bold
+        ),),
+        
+      ),
       body: ListView.builder(
         itemCount: skills.length,
         itemBuilder: (context, index) => ListTile(
-          title: Text(skills[index].title),
-          subtitle: Text(skills[index].description),
+          title: Text(skills[index].title, style: TextStyle(
+            fontSize: 20
+          ),),
+          subtitle: Text('by ${skills[index].username}', style: TextStyle(
+            fontWeight: FontWeight.bold
+          ),),
         ),
       ),
     );
