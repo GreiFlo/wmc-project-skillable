@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:skillable_frontend/models/skillmodels/skill.dart';
 import 'package:skillable_frontend/pages/detail_skill.dart';
+import 'package:skillable_frontend/pages/theme_settings.dart';
 import 'package:skillable_frontend/services/location_service.dart';
 import 'package:skillable_frontend/services/skills_service.dart';
 import 'package:geolocator/geolocator.dart';
@@ -60,7 +61,7 @@ class _HomePage extends State<HomePage> {
                 icon: Icon(Icons.settings),
                 color: Theme.of(context).colorScheme.onSurfaceVariant,
                 onPressed: () {
-                  
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => ThemeSettingsPage(),));
                 },
               ),
             ),

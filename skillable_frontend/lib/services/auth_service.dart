@@ -13,7 +13,7 @@ class AuthException implements Exception {
 }
 
 class AuthService {
-  final String baseUrl = 'http://10.0.2.2:3000/auth';
+  final String baseUrl = 'http://10.10.10.199:3000/auth';
   final http.Client _client;
 
   AuthService({

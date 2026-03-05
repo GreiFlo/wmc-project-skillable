@@ -3,11 +3,8 @@ import 'package:flutter/material.dart';
 
 //AI prompt 6
 class AppThemes {
-  static final ThemeData blueTheme = ThemeData(
-    primaryColor: Colors.blue,
-    scaffoldBackgroundColor: Colors.white,
-    colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-  );
+
+  static final List<ThemeData> themes = [system, lightTheme, darkGreenTheme, redTheme, darkGreenTheme];
 
   static final ThemeData redTheme = ThemeData(
     primaryColor: Colors.red,
@@ -22,4 +19,24 @@ class AppThemes {
     colorScheme: ColorScheme.fromSeed(seedColor: Colors.green, brightness: Brightness.dark),
   );
 
+  static final ThemeData lightTheme = ThemeData(
+    useMaterial3: true,
+    brightness: Brightness.light,
+    colorScheme: ColorScheme.fromSeed(
+      seedColor: Colors.blue,
+      brightness: Brightness.light,
+    ),
+  );
+
+  static final ThemeData darkTheme = ThemeData(
+    useMaterial3: true,
+    brightness: Brightness.dark,
+    colorScheme: ColorScheme.fromSeed(
+      seedColor: Colors.blue,
+      brightness: Brightness.dark,
+    ),
+  );
+  static final ThemeData system = ThemeData(
+    
+  );
 }
