@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:skillable_frontend/models/skillmodels/skill.dart';
 import 'package:skillable_frontend/pages/detail_skill.dart';
+import 'package:skillable_frontend/services/location_service.dart';
 import 'package:skillable_frontend/services/skills_service.dart';
+import 'package:geolocator/geolocator.dart';
+
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -22,9 +25,19 @@ class _HomePage extends State<HomePage> {
   }
 
   Future<void> loadSkills() async {
-    var listSkills = await SkillsService().getAll();
+
+    List<Skill>? listSkills;
+    if(_selectedFilter == 'All'){
+      listSkills = await SkillsService().getAll();
+    }else if(_selectedFilter == 'location'){
+      Position p = await LocationService().determinePosition();
+      listSkills = await SkillsService().getNearby(lat: p.latitude, long: p.longitude);
+    }else if(_selectedFilter == 'recent'){
+      listSkills = await SkillsService().getAll();
+      listSkills = listSkills.where((x) => DateTime.parse(x.creationDate).isAfter(DateTime.now().subtract(Duration(days: 2)))).toList();
+    }
     setState(() {
-      skills = listSkills;
+      skills = listSkills!;
     });
   }
 
@@ -32,10 +45,7 @@ class _HomePage extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return // State-Variablen in der Klasse:
-    // String _selectedFilter = 'All';
-    // Die Filter-Icons/Labels kannst du später mit Logik belegen
-    Scaffold(
+    return Scaffold(
       appBar: AppBar(
         title: const Text(
           'Skillable',
@@ -68,19 +78,28 @@ class _HomePage extends State<HomePage> {
                     icon: Icons.location_on_outlined,
                     label: null,
                     isSelected: _selectedFilter == 'location',
-                    onTap: () => setState(() => _selectedFilter = 'location'),
+                    onTap: () => setState(() {
+                      _selectedFilter = 'location';
+                      loadSkills();
+                    }),
                   ),
                   _FilterChip(
                     icon: Icons.access_time_rounded,
                     label: null,
                     isSelected: _selectedFilter == 'recent',
-                    onTap: () => setState(() => _selectedFilter = 'recent'),
+                    onTap: () => setState(() {
+                      _selectedFilter = 'recent';
+                      loadSkills();
+                    }),
                   ),
                   _FilterChip(
                     icon: null,
                     label: 'All',
                     isSelected: _selectedFilter == 'All',
-                    onTap: () => setState(() => _selectedFilter = 'All'),
+                    onTap: () => setState(() { 
+                      _selectedFilter = 'All';
+                      loadSkills();
+                    }),
                   ),
                 ],
               ),
