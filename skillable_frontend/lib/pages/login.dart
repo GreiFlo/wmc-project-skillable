@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:skillable_frontend/components/password_field.dart';
 import 'package:skillable_frontend/services/auth_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:skillable_frontend/services/skills_service.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -15,7 +16,19 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreen extends State<LoginScreen> {
   @override
   void initState() {
+    checkLogin();
     super.initState();
+  }
+
+  Future<void> checkLogin() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('token');
+    if(token != null){
+      var skills = await SkillsService().getAll();
+      if(skills != null){
+        Navigator.pushReplacementNamed(context, '/main');
+      }
+    }
   }
 
   bool _isLogin = true;

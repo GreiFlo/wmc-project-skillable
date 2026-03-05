@@ -10,7 +10,7 @@ class SkillsService {
 
   SkillsService({http.Client? client}) : _client = client ?? http.Client();
 
-  Future<List<Skill>> getNearby({
+  Future<List<Skill>?> getNearby({
     required double lat,
     required double long,
   }) async {
@@ -37,11 +37,11 @@ class SkillsService {
 
       return skills;
     } catch (e) {
-      return List<Skill>.empty();
+      return null;
     }
   }
 
-  Future<List<Skill>> getAll() async {
+  Future<List<Skill>?> getAll() async {
     final uri = Uri.parse('$baseUrl/all');
     try {
       var sharedPreferences = await SharedPreferences.getInstance();
@@ -49,12 +49,10 @@ class SkillsService {
 
       final response = await _client
           .get(
-            // _client statt http.get
             uri,
             headers: {
               'Content-Type': 'application/json',
               'Authorization': 'Bearer $token',
-              'Connection': 'close', // wichtig für lokale Server
             },
           )
           .timeout(const Duration(seconds: 5));
@@ -72,7 +70,7 @@ class SkillsService {
           .toList();
     } catch (e) {
       print('getAll error: $e'); // zeigt dir den echten Fehler
-      return List<Skill>.empty();
+      return null;
     }
   }
 

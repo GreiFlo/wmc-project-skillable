@@ -35,7 +35,7 @@ class _HomePage extends State<HomePage> {
       listSkills = await SkillsService().getNearby(lat: p.latitude, long: p.longitude);
     }else if(_selectedFilter == 'recent'){
       listSkills = await SkillsService().getAll();
-      listSkills = listSkills.where((x) => DateTime.parse(x.creationDate).isAfter(DateTime.now().subtract(Duration(days: 2)))).toList();
+      listSkills = listSkills?.where((x) => DateTime.parse(x.creationDate).isAfter(DateTime.now().subtract(Duration(days: 2)))).toList();
     }
     setState(() {
       skills = listSkills!;
@@ -56,7 +56,7 @@ class _HomePage extends State<HomePage> {
           Padding(
             padding: const EdgeInsets.only(right: 12),
             child: CircleAvatar(
-              backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
+              backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
               child: IconButton(
                 icon: Icon(Icons.settings),
                 color: Theme.of(context).colorScheme.onSurfaceVariant,
@@ -201,7 +201,7 @@ class _FilterChip extends StatelessWidget {
         decoration: BoxDecoration(
           color: isSelected
               ? Theme.of(context).colorScheme.primaryContainer
-              : Theme.of(context).colorScheme.surfaceVariant,
+              : Theme.of(context).colorScheme.surfaceContainerHighest,
           borderRadius: BorderRadius.circular(20),
         ),
         child: icon != null

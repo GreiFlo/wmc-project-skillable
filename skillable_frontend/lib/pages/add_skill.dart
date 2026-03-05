@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:skillable_frontend/pages/theme_settings.dart';
 import 'package:skillable_frontend/services/location_service.dart';
 import 'package:skillable_frontend/services/skills_service.dart';
 
@@ -38,12 +39,12 @@ class _AddSkillPage extends State<AddSkillPage> {
           Padding(
             padding: const EdgeInsets.only(right: 12),
             child: CircleAvatar(
-              backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
+              backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
               child: IconButton(
                 icon: Icon(Icons.settings),
                 color: Theme.of(context).colorScheme.onSurfaceVariant,
                 onPressed: () {
-                  
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => ThemeSettingsPage(),));
                 },
               ),
             ),
