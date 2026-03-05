@@ -56,9 +56,12 @@ class _HomePage extends State<HomePage> {
             padding: const EdgeInsets.only(right: 12),
             child: CircleAvatar(
               backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
-              child: Icon(
-                Icons.person_outline_rounded,
+              child: IconButton(
+                icon: Icon(Icons.settings),
                 color: Theme.of(context).colorScheme.onSurfaceVariant,
+                onPressed: () {
+                  
+                },
               ),
             ),
           ),

@@ -34,6 +34,21 @@ class _AddSkillPage extends State<AddSkillPage> {
           'Skill hinzufügen',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 12),
+            child: CircleAvatar(
+              backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
+              child: IconButton(
+                icon: Icon(Icons.settings),
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
+                onPressed: () {
+                  
+                },
+              ),
+            ),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
