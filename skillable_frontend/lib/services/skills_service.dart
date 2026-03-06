@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skillable_frontend/models/skillmodels/skill.dart';
 
 class SkillsService {
-  final String baseUrl = 'http://10.10.10.199:3000/skills';
+  final String baseUrl = 'http://10.58.112.129:3000/skills';
   final http.Client _client;
 
   SkillsService({http.Client? client}) : _client = client ?? http.Client();
@@ -84,7 +84,7 @@ class SkillsService {
 
     var sharedPreferences = await SharedPreferences.getInstance();
     var token = sharedPreferences.getString('token');
-    
+
     await _client.post(
       uri,
       headers: {

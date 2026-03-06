@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:skillable_frontend/models/skillmodels/skill.dart';
+import 'package:skillable_frontend/pages/chat_page.dart';
 
 class SkillDetail extends StatelessWidget {
   final Skill skill;
@@ -27,7 +28,13 @@ class SkillDetail extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          // TODO: Navigation oder Chat öffnen
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) =>
+                  ChatPage(user2Id: skill.userid, username: skill.username),
+            ),
+          );
         },
         icon: const Icon(Icons.chat_bubble_outline_rounded),
         label: const Text(
@@ -45,7 +52,9 @@ class SkillDetail extends StatelessWidget {
               children: [
                 CircleAvatar(
                   radius: 14,
-                  backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+                  backgroundColor: Theme.of(
+                    context,
+                  ).colorScheme.primaryContainer,
                   child: Icon(
                     Icons.person_rounded,
                     size: 16,

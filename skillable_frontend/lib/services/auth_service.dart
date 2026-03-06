@@ -13,12 +13,10 @@ class AuthException implements Exception {
 }
 
 class AuthService {
-  final String baseUrl = 'http://10.10.10.199:3000/auth';
+  final String baseUrl = 'http://10.58.112.129:3000/auth';
   final http.Client _client;
 
-  AuthService({
-    http.Client? client,
-  }) : _client = client ?? http.Client();
+  AuthService({http.Client? client}) : _client = client ?? http.Client();
 
   Future<AuthResponse> register({
     required String username,
@@ -49,10 +47,7 @@ class AuthService {
     final response = await _client.post(
       uri,
       headers: {'Content-Type': 'application/json'},
-      body: jsonEncode({
-        'email': email,
-        'password': password,
-      }),
+      body: jsonEncode({'email': email, 'password': password}),
     );
     _client.close();
     return _handleResponse(response);
