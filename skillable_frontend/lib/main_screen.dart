@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:skillable_frontend/pages/add_skill.dart';
+import 'package:skillable_frontend/pages/chat_overview_page.dart';
 import 'package:skillable_frontend/pages/home.dart';
 
 class MainScreen extends StatefulWidget {
@@ -15,7 +16,7 @@ class _MainScreenState extends State<MainScreen> {
   // Navbar AI Prompt 3
   final List<Widget> _pages = [
     const HomePage(),
-    const Placeholder(),
+    const ChatOverview(),
     const Placeholder(),
     const AddSkillPage(),
   ];

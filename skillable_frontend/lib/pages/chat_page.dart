@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:skillable_frontend/models/chat-models/chat.dart';
 import 'package:skillable_frontend/models/chat-models/message.dart';
 import 'package:skillable_frontend/services/chat_service.dart';
 
@@ -73,6 +76,24 @@ class _ChatPageState extends State<ChatPage> {
       if (history != null) _messages.addAll(history);
       _isLoading = false;
     });
+
+    var chatString = prefs.getString('chats');
+    if (chatString == null) {
+      prefs.setString('chats', jsonEncode(List<Chat>.empty()));
+    }
+
+    List<dynamic> rawChats = jsonDecode(prefs.getString('chats')!);
+    List<Chat> chats = rawChats
+        .map((item) => Chat.fromJson(item as Map<String, dynamic>))
+        .toList();
+
+    if (!chats.any((element) => element.user2Id == widget.user2Id)) {
+      chats.add(Chat(user2Id: widget.user2Id, username: widget.username));
+      prefs.setString(
+        'chats',
+        jsonEncode(chats.map((item) => item.toJson()).toList()),
+      );
+    }
 
     _scrollToBottom();
   }
