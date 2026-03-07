@@ -55,40 +55,67 @@ class _ChatOverview extends State<ChatOverview> {
           ),
         ],
       ),
-      body: ListView.separated(
+      body: ListView.builder(
+        padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
         itemCount: chats.length,
-        separatorBuilder: (context, index) =>
-            const Divider(height: 1, indent: 72),
         itemBuilder: (context, index) {
           final chat = chats[index];
-          return ListTile(
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 16.0,
-              vertical: 4.0,
-            ),
-            leading: CircleAvatar(
-              backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-              child: Text(
-                chat.username.isNotEmpty ? chat.username[0].toUpperCase() : '?',
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.onPrimaryContainer,
-                  fontWeight: FontWeight.bold,
+          return Padding(
+            padding: const EdgeInsets.only(bottom: 12),
+            child: Card(
+              elevation: 0,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+                side: BorderSide(
+                  color: Theme.of(context).colorScheme.outlineVariant,
                 ),
               ),
-            ),
-            title: Text(
-              chat.username,
-              style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
-            ),
-            trailing: Icon(
-              Icons.chevron_right,
-              color: Theme.of(context).colorScheme.onSurfaceVariant,
-            ),
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) =>
-                    ChatPage(user2Id: chat.user2Id, username: chat.username),
+              color: Theme.of(context).colorScheme.surface,
+              child: InkWell(
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ChatPage(
+                      user2Id: chat.user2Id,
+                      username: chat.username,
+                    ),
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        backgroundColor: Theme.of(
+                          context,
+                        ).colorScheme.primaryContainer,
+                        child: Text(
+                          chat.username.isNotEmpty
+                              ? chat.username[0].toUpperCase()
+                              : '?',
+                          style: TextStyle(
+                            color: Theme.of(
+                              context,
+                            ).colorScheme.onPrimaryContainer,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: Text(
+                          chat.username,
+                          style: Theme.of(context).textTheme.titleLarge
+                              ?.copyWith(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Icon(
+                        Icons.chevron_right,
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ),
           );
@@ -99,7 +126,7 @@ class _ChatOverview extends State<ChatOverview> {
 
   Future<void> loadChats() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<dynamic> rawChats = jsonDecode(prefs.getString('chats')!);
+    List<dynamic> rawChats = jsonDecode(prefs.getString('chats') ?? '[]');
     setState(() {
       chats = rawChats
           .map((item) => Chat.fromJson(item as Map<String, dynamic>))
