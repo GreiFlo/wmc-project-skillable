@@ -32,8 +32,6 @@ class _ProfilePage extends State<ProfilePage> {
     });
   }
 
-  var _selectedFilter = 'All';
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,46 +65,6 @@ class _ProfilePage extends State<ProfilePage> {
       ),
       body: Column(
         children: [
-          // Filter Bar
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 8, 16, 4),
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                spacing: 8,
-                children: [
-                  _FilterChip(
-                    icon: Icons.location_on_outlined,
-                    label: null,
-                    isSelected: _selectedFilter == 'location',
-                    onTap: () => setState(() {
-                      _selectedFilter = 'location';
-                      loadSkills();
-                    }),
-                  ),
-                  _FilterChip(
-                    icon: Icons.access_time_rounded,
-                    label: null,
-                    isSelected: _selectedFilter == 'recent',
-                    onTap: () => setState(() {
-                      _selectedFilter = 'recent';
-                      loadSkills();
-                    }),
-                  ),
-                  _FilterChip(
-                    icon: null,
-                    label: 'All',
-                    isSelected: _selectedFilter == 'All',
-                    onTap: () => setState(() {
-                      _selectedFilter = 'All';
-                      loadSkills();
-                    }),
-                  ),
-                ],
-              ),
-            ),
-          ),
-
           // List
           Expanded(
             child: ListView.builder(
@@ -175,55 +133,6 @@ class _ProfilePage extends State<ProfilePage> {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _FilterChip extends StatelessWidget {
-  final IconData? icon;
-  final String? label;
-  final bool isSelected;
-  final VoidCallback onTap;
-
-  const _FilterChip({
-    this.icon,
-    this.label,
-    required this.isSelected,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-        decoration: BoxDecoration(
-          color: isSelected
-              ? Theme.of(context).colorScheme.primaryContainer
-              : Theme.of(context).colorScheme.surfaceContainerHighest,
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: icon != null
-            ? Icon(
-                icon,
-                size: 18,
-                color: isSelected
-                    ? Theme.of(context).colorScheme.primary
-                    : Theme.of(context).colorScheme.onSurfaceVariant,
-              )
-            : Text(
-                label!,
-                style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w600,
-                  color: isSelected
-                      ? Theme.of(context).colorScheme.primary
-                      : Theme.of(context).colorScheme.onSurfaceVariant,
-                ),
-              ),
       ),
     );
   }
