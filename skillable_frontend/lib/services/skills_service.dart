@@ -74,6 +74,39 @@ class SkillsService {
     }
   }
 
+  Future<List<Skill>?> getOwn() async {
+    final uri = Uri.parse('$baseUrl/own');
+    try {
+      var sharedPreferences = await SharedPreferences.getInstance();
+      var token = sharedPreferences.getString('token');
+
+      final response = await _client
+          .get(
+            uri,
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer $token',
+            },
+          )
+          .timeout(const Duration(seconds: 5));
+
+      _client.close();
+
+      if (response.statusCode != 200) {
+        print('Error: ${response.statusCode} - ${response.body}');
+        return List<Skill>.empty();
+      }
+
+      List<dynamic> body = jsonDecode(response.body);
+      return body
+          .map((dynamic item) => Skill.fromJson(item as Map<String, dynamic>))
+          .toList();
+    } catch (e) {
+      print('getAll error: $e'); // zeigt dir den echten Fehler
+      return null;
+    }
+  }
+
   Future<void> addSkill({
     required String title,
     required String description,

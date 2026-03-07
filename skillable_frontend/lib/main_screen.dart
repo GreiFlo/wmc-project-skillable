@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:skillable_frontend/pages/add_skill.dart';
 import 'package:skillable_frontend/pages/chat_overview_page.dart';
 import 'package:skillable_frontend/pages/home.dart';
+import 'package:skillable_frontend/pages/profile_page.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -17,7 +18,7 @@ class _MainScreenState extends State<MainScreen> {
   final List<Widget> _pages = [
     const HomePage(),
     const ChatOverview(),
-    const Placeholder(),
+    const ProfilePage(),
     const AddSkillPage(),
   ];
 

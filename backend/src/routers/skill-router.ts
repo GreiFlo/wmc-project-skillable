@@ -48,6 +48,22 @@ router.get('/all', authMiddleware, (req: Request, res: Response) => {
   });
 });
 
+router.get('/own', authMiddleware, (req: Request, res: Response) => {
+  const token = req.headers['authorization']?.split(' ')[1];
+  const user: JwtPayload = jwt.decode(token!) as JwtPayload;
+
+  db.all<Skill>(`
+        SELECT s.id, s.user_id, s.title, s.description, s.creationDate, s.longitude, s.latitude, u.username
+        FROM skills s
+        JOIN users u ON s.user_id = u.id
+        WHERE s.user_id = ?
+        ORDER BY creationDate ASC
+      `, [user.id], (err, rows) => {
+    if (err) { res.status(500).json({ error: err.message }); return; }
+    res.json(rows);
+  });
+});
+
 router.post('/', authMiddleware, (req: Request, res: Response) => {
 
   if (req.body === undefined) {
