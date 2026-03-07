@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skillable_frontend/models/chat-models/chat.dart';
 import 'package:skillable_frontend/models/chat-models/message.dart';
@@ -40,7 +41,7 @@ class _ChatPageState extends State<ChatPage> {
     }
 
     final chat = ChatService(
-      serverUrl: 'http://10.58.112.129:3000',
+      serverUrl: '${dotenv.env['API_BASE_URL']}',
       jwtToken: token,
     );
 

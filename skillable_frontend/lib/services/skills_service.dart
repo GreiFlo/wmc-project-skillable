@@ -1,11 +1,12 @@
 import 'dart:convert';
 
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skillable_frontend/models/skillmodels/skill.dart';
 
 class SkillsService {
-  final String baseUrl = 'http://10.58.112.129:3000/skills';
+  final String baseUrl = '${dotenv.env['API_BASE_URL']}/skills';
   final http.Client _client;
 
   SkillsService({http.Client? client}) : _client = client ?? http.Client();

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:skillable_frontend/models/auth-models/auth_respons.dart';
 
@@ -13,7 +14,7 @@ class AuthException implements Exception {
 }
 
 class AuthService {
-  final String baseUrl = 'http://10.58.112.129:3000/auth';
+  final String baseUrl = '${dotenv.env['API_BASE_URL']}/auth';
   final http.Client _client;
 
   AuthService({http.Client? client}) : _client = client ?? http.Client();
