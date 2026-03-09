@@ -105,7 +105,7 @@ class _ProfilePage extends State<ProfilePage> {
                             ),
                             const SizedBox(height: 4),
                             Text(
-                              'By ${skill.username}',
+                              'Von ${skill.username}',
                               style: Theme.of(context).textTheme.bodySmall
                                   ?.copyWith(
                                     color: Theme.of(
