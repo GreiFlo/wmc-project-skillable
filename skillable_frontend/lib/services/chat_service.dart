@@ -8,7 +8,6 @@ import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 enum ChatConnectionState { disconnected, connecting, connected, error }
 
-//AI prompt 7
 class ChatService {
   final String serverUrl;
   final String jwtToken;
@@ -142,7 +141,7 @@ class ChatService {
 
   void dispose() {
     disconnect();
-    _client.close(); // ✅ Only close when service is fully disposed
+    _client.close();
     _messageReceivedController.close();
     _messageSentController.close();
     _connectionStateController.close();

@@ -22,8 +22,7 @@ class ThemeSettingsPage extends StatelessWidget {
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 10),
-            
-            // Das Dropdown-Menü
+
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
               decoration: BoxDecoration(
@@ -41,29 +40,48 @@ class ThemeSettingsPage extends StatelessWidget {
                     }
                   },
                   items: [
-                    DropdownMenuItem(value: AppThemes.system, child: const Text("System")),
-                    DropdownMenuItem(value: AppThemes.darkTheme, child: const Text("Dark")),
-                    DropdownMenuItem(value: AppThemes.lightTheme, child: const Text("Light")),
-                    DropdownMenuItem(value: AppThemes.darkGreenTheme, child: const Text("Green")),
-                    DropdownMenuItem(value: AppThemes.redTheme, child: const Text("Red")),
+                    DropdownMenuItem(
+                      value: AppThemes.system,
+                      child: const Text("System"),
+                    ),
+                    DropdownMenuItem(
+                      value: AppThemes.darkTheme,
+                      child: const Text("Dark"),
+                    ),
+                    DropdownMenuItem(
+                      value: AppThemes.lightTheme,
+                      child: const Text("Light"),
+                    ),
+                    DropdownMenuItem(
+                      value: AppThemes.darkGreenTheme,
+                      child: const Text("Green"),
+                    ),
+                    DropdownMenuItem(
+                      value: AppThemes.redTheme,
+                      child: const Text("Red"),
+                    ),
                   ],
                 ),
               ),
             ),
 
             const SizedBox(height: 30),
-            
-            // Vorschau-Karten zur Demonstration
+
             Card(
               child: ListTile(
-                leading: Icon(Icons.info, color: Theme.of(context).colorScheme.primary),
+                leading: Icon(
+                  Icons.info,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
                 title: const Text("Vorschau"),
-                subtitle: Text("Aktuell gewählt: ${themeNotifier.currentTheme.toString().split('.').last}"),
+                subtitle: Text(
+                  "Aktuell gewählt: ${themeNotifier.currentTheme.toString().split('.').last}",
+                ),
               ),
             ),
-            
+
             const SizedBox(height: 20),
-            
+
             ElevatedButton(
               onPressed: () {},
               child: const Text("Beispiel Button"),

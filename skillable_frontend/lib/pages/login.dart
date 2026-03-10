@@ -23,9 +23,9 @@ class _LoginScreen extends State<LoginScreen> {
   Future<void> checkLogin() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
-    if(token != null){
+    if (token != null) {
       var skills = await SkillsService().getAll();
-      if(skills != null){
+      if (skills != null) {
         Navigator.pushReplacementNamed(context, '/main');
       }
     }
@@ -227,7 +227,6 @@ class _LoginScreen extends State<LoginScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          // Benutzername nur bei Register
                           AnimatedSize(
                             duration: const Duration(milliseconds: 300),
                             curve: Curves.easeInOut,
@@ -289,7 +288,6 @@ class _LoginScreen extends State<LoginScreen> {
                           PasswordField(controller: passwordController),
                           const SizedBox(height: 24),
 
-                          // Einziger Button, wechselt je nach Modus
                           FilledButton(
                             onPressed: () async {
                               if (_isLogin) {

@@ -14,7 +14,6 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
 
-  // Navbar AI Prompt 3
   final List<Widget> _pages = [
     const HomePage(),
     const ChatOverview(),
