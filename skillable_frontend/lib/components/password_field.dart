@@ -14,9 +14,18 @@ class _PasswordFieldState extends State<PasswordField> {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       controller: widget.controller, // access via widget.
       obscureText: _obscureText,
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Bitte gib ein Passwort ein';
+        }
+        if (value.length < 6) {
+          return 'Passwort muss mindestens 6 Zeichen lang sein';
+        }
+        return null;
+      },
       decoration: InputDecoration(
         labelText: 'Passwort',
         border: const OutlineInputBorder(),
