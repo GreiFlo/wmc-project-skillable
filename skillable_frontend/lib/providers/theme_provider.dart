@@ -2,21 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skillable_frontend/appthemes.dart';
 
-// AI prompt 6
 class ThemeProvider extends ChangeNotifier {
-
-  ThemeProvider(){
+  ThemeProvider() {
     loadCurrentTheme();
   }
 
   Future<void> loadCurrentTheme() async {
     var sharedPrefs = await SharedPreferences.getInstance();
     var themeIndex = sharedPrefs.getInt('currentTheme');
-    setTheme(themeIndex != null ? AppThemes.themes[themeIndex] : AppThemes.system);
+    setTheme(
+      themeIndex != null ? AppThemes.themes[themeIndex] : AppThemes.system,
+    );
     notifyListeners();
   }
 
-  ThemeData _currentTheme = AppThemes.darkGreenTheme; // Start-Theme
+  ThemeData _currentTheme = AppThemes.darkGreenTheme;
 
   ThemeData get currentTheme => _currentTheme;
 

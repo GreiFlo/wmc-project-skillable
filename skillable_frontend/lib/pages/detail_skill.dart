@@ -47,7 +47,6 @@ class SkillDetail extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Author + Datum
             Row(
               children: [
                 CircleAvatar(
@@ -89,7 +88,6 @@ class SkillDetail extends StatelessWidget {
             Divider(color: Theme.of(context).colorScheme.outlineVariant),
             const SizedBox(height: 24),
 
-            // Beschreibung Label
             Text(
               'Beschreibung',
               style: Theme.of(context).textTheme.titleSmall?.copyWith(
@@ -100,7 +98,6 @@ class SkillDetail extends StatelessWidget {
             ),
             const SizedBox(height: 12),
 
-            // Beschreibung Card
             Card(
               elevation: 0,
               shape: RoundedRectangleBorder(

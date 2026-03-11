@@ -6,7 +6,6 @@ import 'package:skillable_frontend/services/location_service.dart';
 import 'package:skillable_frontend/services/skills_service.dart';
 import 'package:geolocator/geolocator.dart';
 
-
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -26,16 +25,24 @@ class _HomePage extends State<HomePage> {
   }
 
   Future<void> loadSkills() async {
-
     List<Skill>? listSkills;
-    if(_selectedFilter == 'All'){
+    if (_selectedFilter == 'All') {
       listSkills = await SkillsService().getAll();
-    }else if(_selectedFilter == 'location'){
+    } else if (_selectedFilter == 'location') {
       Position p = await LocationService().determinePosition();
-      listSkills = await SkillsService().getNearby(lat: p.latitude, long: p.longitude);
-    }else if(_selectedFilter == 'recent'){
+      listSkills = await SkillsService().getNearby(
+        lat: p.latitude,
+        long: p.longitude,
+      );
+    } else if (_selectedFilter == 'recent') {
       listSkills = await SkillsService().getAll();
-      listSkills = listSkills?.where((x) => DateTime.parse(x.creationDate).isAfter(DateTime.now().subtract(Duration(days: 2)))).toList();
+      listSkills = listSkills
+          ?.where(
+            (x) => DateTime.parse(
+              x.creationDate,
+            ).isAfter(DateTime.now().subtract(Duration(days: 2))),
+          )
+          .toList();
     }
     setState(() {
       skills = listSkills!;
@@ -56,12 +63,19 @@ class _HomePage extends State<HomePage> {
           Padding(
             padding: const EdgeInsets.only(right: 12),
             child: CircleAvatar(
-              backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
+              backgroundColor: Theme.of(
+                context,
+              ).colorScheme.surfaceContainerHighest,
               child: IconButton(
                 icon: Icon(Icons.settings),
                 color: Theme.of(context).colorScheme.onSurfaceVariant,
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => ThemeSettingsPage(),));
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ThemeSettingsPage(),
+                    ),
+                  );
                 },
               ),
             ),
@@ -100,7 +114,7 @@ class _HomePage extends State<HomePage> {
                     icon: null,
                     label: 'All',
                     isSelected: _selectedFilter == 'All',
-                    onTap: () => setState(() { 
+                    onTap: () => setState(() {
                       _selectedFilter = 'All';
                       loadSkills();
                     }),
@@ -131,7 +145,12 @@ class _HomePage extends State<HomePage> {
                     child: InkWell(
                       //bei klick auf ein Skill
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => SkillDetail(skill: skill)));
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SkillDetail(skill: skill),
+                          ),
+                        );
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(16),
@@ -145,7 +164,7 @@ class _HomePage extends State<HomePage> {
                             ),
                             const SizedBox(height: 4),
                             Text(
-                              'By ${skill.username}',
+                              'Von ${skill.username}',
                               style: Theme.of(context).textTheme.bodySmall
                                   ?.copyWith(
                                     color: Theme.of(

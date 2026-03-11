@@ -319,7 +319,6 @@ class _LoginScreen extends State<LoginScreen> {
                             PasswordField(controller: passwordController),
                             const SizedBox(height: 24),
 
-                            // Einziger Button, wechselt je nach Modus
                             FilledButton(
                               onPressed: () async {
                                 if (_isLogin) {

@@ -70,7 +70,7 @@ class SkillsService {
           .map((dynamic item) => Skill.fromJson(item as Map<String, dynamic>))
           .toList();
     } catch (e) {
-      print('getAll error: $e'); // zeigt dir den echten Fehler
+      print('getAll error: $e');
       return null;
     }
   }
@@ -103,7 +103,7 @@ class SkillsService {
           .map((dynamic item) => Skill.fromJson(item as Map<String, dynamic>))
           .toList();
     } catch (e) {
-      print('getAll error: $e'); // zeigt dir den echten Fehler
+      print('getAll error: $e');
       return null;
     }
   }

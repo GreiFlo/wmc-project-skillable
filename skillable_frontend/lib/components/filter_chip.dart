@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 class FilterChip extends StatelessWidget {
@@ -9,7 +7,7 @@ class FilterChip extends StatelessWidget {
   final VoidCallback onTap;
 
   const FilterChip({
-    super.key, 
+    super.key,
     this.icon,
     this.label,
     required this.isSelected,

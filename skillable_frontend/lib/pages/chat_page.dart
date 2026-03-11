@@ -107,7 +107,6 @@ class _ChatPageState extends State<ChatPage> {
     _textController.clear();
   }
 
-  //AI prompt 8
   void _scrollToBottom() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (_scrollController.hasClients) {

@@ -25,8 +25,6 @@ class _AddSkillPage extends State<AddSkillPage> {
     super.dispose();
   }
 
-
-  //AI wie prompt 4
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,12 +37,19 @@ class _AddSkillPage extends State<AddSkillPage> {
           Padding(
             padding: const EdgeInsets.only(right: 12),
             child: CircleAvatar(
-              backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
+              backgroundColor: Theme.of(
+                context,
+              ).colorScheme.surfaceContainerHighest,
               child: IconButton(
                 icon: Icon(Icons.settings),
                 color: Theme.of(context).colorScheme.onSurfaceVariant,
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => ThemeSettingsPage(),));
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ThemeSettingsPage(),
+                    ),
+                  );
                 },
               ),
             ),
@@ -119,10 +124,9 @@ class _AddSkillPage extends State<AddSkillPage> {
                           borderSide: BorderSide.none,
                         ),
                         filled: true,
-                        fillColor: Theme.of(context)
-                            .colorScheme
-                            .surfaceVariant
-                            .withOpacity(0.5),
+                        fillColor: Theme.of(
+                          context,
+                        ).colorScheme.surfaceVariant.withOpacity(0.5),
                         contentPadding: const EdgeInsets.symmetric(
                           horizontal: 16,
                           vertical: 14,
@@ -145,10 +149,9 @@ class _AddSkillPage extends State<AddSkillPage> {
                           borderSide: BorderSide.none,
                         ),
                         filled: true,
-                        fillColor: Theme.of(context)
-                            .colorScheme
-                            .surfaceVariant
-                            .withOpacity(0.5),
+                        fillColor: Theme.of(
+                          context,
+                        ).colorScheme.surfaceVariant.withOpacity(0.5),
                         contentPadding: const EdgeInsets.symmetric(
                           horizontal: 16,
                           vertical: 14,
@@ -158,9 +161,18 @@ class _AddSkillPage extends State<AddSkillPage> {
                     const SizedBox(height: 24),
                     FilledButton(
                       onPressed: () async {
-                        Position p = await LocationService().determinePosition();
-                        await SkillsService().addSkill(title: titleController.text, description: descriptionController.text, long: p.longitude, lat: p.latitude);
-                        Fluttertoast.showToast(msg: "Skill geposted!", toastLength: Toast.LENGTH_LONG);
+                        Position p = await LocationService()
+                            .determinePosition();
+                        await SkillsService().addSkill(
+                          title: titleController.text,
+                          description: descriptionController.text,
+                          long: p.longitude,
+                          lat: p.latitude,
+                        );
+                        Fluttertoast.showToast(
+                          msg: "Skill geposted!",
+                          toastLength: Toast.LENGTH_LONG,
+                        );
                         titleController.text = '';
                         descriptionController.text = '';
                       },

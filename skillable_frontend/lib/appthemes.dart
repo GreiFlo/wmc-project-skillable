@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 
-
-//AI prompt 6
 class AppThemes {
-
-  static final List<ThemeData> themes = [system, lightTheme, darkGreenTheme, redTheme, darkGreenTheme];
+  static final List<ThemeData> themes = [
+    system,
+    lightTheme,
+    darkGreenTheme,
+    redTheme,
+    darkGreenTheme,
+  ];
 
   static final ThemeData redTheme = ThemeData(
     primaryColor: Colors.red,
@@ -16,7 +19,10 @@ class AppThemes {
     brightness: Brightness.dark,
     primaryColor: Colors.green[900],
     scaffoldBackgroundColor: Colors.black,
-    colorScheme: ColorScheme.fromSeed(seedColor: Colors.green, brightness: Brightness.dark),
+    colorScheme: ColorScheme.fromSeed(
+      seedColor: Colors.green,
+      brightness: Brightness.dark,
+    ),
   );
 
   static final ThemeData lightTheme = ThemeData(
@@ -36,7 +42,5 @@ class AppThemes {
       brightness: Brightness.dark,
     ),
   );
-  static final ThemeData system = ThemeData(
-    
-  );
+  static final ThemeData system = ThemeData();
 }
