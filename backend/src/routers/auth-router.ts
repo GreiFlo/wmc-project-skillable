@@ -13,7 +13,6 @@ const db = DbService.getDb();
 
 router.post('/register', async (req: Request, res: Response): Promise<void> => {
 
-  console.log('register REquest!!');
   const { username, email, password } = req.body as {
     username?: string;
     email?: string;
@@ -62,9 +61,6 @@ router.post('/register', async (req: Request, res: Response): Promise<void> => {
 });
 
 router.post('/login', async (req: Request, res: Response): Promise<void> => {
-  console.log('login REquest!!');
-
-
   const { email, password } = req.body as { email?: string; password?: string };
 
   if (!email?.trim() || !password?.trim()) {

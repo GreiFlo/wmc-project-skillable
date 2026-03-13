@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:skillable_frontend/components/password_field.dart';
 import 'package:skillable_frontend/services/auth_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -342,7 +343,13 @@ class _LoginScreen extends State<LoginScreen> {
                                         );
                                       }
                                     }
-                                  } catch (e) {}
+                                  } catch (e) {
+                                    Fluttertoast.showToast(
+                                      msg:
+                                          "E-Mail oder Passwort ist nicht korrekt",
+                                      toastLength: Toast.LENGTH_LONG,
+                                    );
+                                  }
                                 } else {
                                   try {
                                     if (_formKey.currentState!.validate()) {
@@ -365,7 +372,12 @@ class _LoginScreen extends State<LoginScreen> {
                                         );
                                       }
                                     }
-                                  } catch (e) {}
+                                  } catch (e) {
+                                    Fluttertoast.showToast(
+                                      msg: "Diese E-Mail existiert bereits!",
+                                      toastLength: Toast.LENGTH_LONG,
+                                    );
+                                  }
                                 }
                               },
                               style: FilledButton.styleFrom(
